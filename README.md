@@ -1,5 +1,7 @@
 # Mi Paquete ALISSON
+![CI](https://github.com/A07Ponce/debercitoDEVOPS/actions/workflows/ci.yml/badge.svg)
 
+Un paquete de Python con CI/CD automatizado.
 # mi-paquete — CI/CD práctico hasta la construcción del PACKAGE
 
 Este repositorio es un **ejemplo completo** que demuestra un ciclo de CI/CD con **GitHub Actions** que:
