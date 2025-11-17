@@ -1,43 +1,44 @@
-# CI config placeholder
 name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
-    branches: [main]
+    branches: ["main"]
 
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        python-version: [3.8, 3.10, 3.11]
+        python-version: ["3.8", "3.10", "3.11"]
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install wheel setuptools pytest build
+          pip install build pytest
+          pip install -e .
 
       - name: Run tests
         run: |
-          pytest -q
+          pytest
 
       - name: Build package
         run: |
-          python -m build --sdist --wheel
+          python -m build
 
-      - name: Upload package artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/*
+          name: package-dist-${{ matrix.python-version }}
+          path: dist/
